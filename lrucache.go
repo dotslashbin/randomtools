@@ -1,18 +1,49 @@
 package randomtools
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type cache []string
-
+// Executes the proess of generating the LRU cache
 func GenerateLRUCache(input string) string {
 
-	theCache := cache{}
+	theCache := []string{}
 
-	for _, letter := range input {
-		theCache = append(theCache, string(letter))
+	for _, value := range input {
+		char := string(value)
+		inArray, _ := in_array(char, theCache)
+
+		if inArray == false {
+			theCache = append(theCache, string(char))
+		} else {
+			theCache = updateCollecton(theCache, value)
+		}
 	}
 
-	fmt.Println(theCache)
+	fmt.Println("final", theCache)
 
 	return "you are done"
+}
+
+func in_array(val string, array []string) (ok bool, i int) {
+	for i = range array {
+			if ok = array[i] == val; ok {
+					return
+			}
+	}
+	return
+}
+
+func updateCollecton(theCache []string, letter rune) []string {
+
+	for index, char := range theCache {
+		fmt.Println("removing " + string(letter) + " from ...")1
+		fmt.Println(theCache)
+		if string(letter) == string(char) {
+			theCache = append(theCache[:index], theCache[index+1:]...)
+		}
+	}
+
+	return theCache
+
 }
